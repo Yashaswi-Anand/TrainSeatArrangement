@@ -3,10 +3,13 @@ import { error, success } from './Toast'
 import { bookTrainSeat } from './utils/seatApi'
 
 function Seat() {
-    const [inputSeatsNo, setInputSeatsNo] = useState({})
+    const [inputSeatsNo, setInputSeatsNo] = useState({
+        noOfSeats: 0
+    })
     const [AllSeats, setAllSeats] = useState([{ row1: [] }, { row2: [] }, { row3: [] }, { row4: [] }, { row5: [] }, { row6: [] }, { row7: [] }, { row8: [] }, { row9: [] }, { row10: [] }, { row11: [] }, { row12: [] }])
 
 
+    // get all seats availability
     useEffect(() => {
         (async () => {
             const res = await fetch('https://train-seat-arrangement.vercel.app/getAllSeats');
@@ -30,7 +33,7 @@ function Seat() {
     const bookSeats = async () => {
         console.log(inputSeatsNo)
 
-        if (inputSeatsNo.noOfSeats <= 7) {
+        if (inputSeatsNo.noOfSeats>0 && inputSeatsNo.noOfSeats <= 7) {
             const apiResponce = await bookTrainSeat(inputSeatsNo)
             console.log("apiResponce", apiResponce);
 
@@ -39,12 +42,14 @@ function Seat() {
             } else {
                 error(`${inputSeatsNo.noOfSeats} Seats not booked. Error !!!`)
             }
+        }else if(inputSeatsNo.noOfSeats === 0){
+            error(`Please enter no of seats to book.`)
         } else {
-            error(`Please enter less than 7 seats.`)
+            error(`Please enter upto 7 seats at a time.`)
         }
 
         setInputSeatsNo({
-            noOfSeats: ''
+            noOfSeats: 0
         })
 
     }
@@ -67,7 +72,7 @@ function Seat() {
                         id='input-box'
                         placeholder="Enter No of Seats"
                         onChange={(e) => handleChange(e)}
-                        value={inputSeatsNo.noOfSeats}
+                        value={inputSeatsNo.noOfSeats === 0 ? '' : inputSeatsNo.noOfSeats}
                         required />
                     <input className='submit-btn' type="submit" onClick={() => bookSeats()} value="Submit" />
                 </div>
