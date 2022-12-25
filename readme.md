@@ -17,7 +17,7 @@
 ![image](https://github.com/Yashaswi-Anand/TrainSeatArrangement/blob/master/screenshots/desktop.png)
 
 - Mobile
-![image](https://github.com/Yashaswi-Anand/TrainSeatArrangement/blob/master/screenshots/mobile.png)
+![image](https://github.com/Yashaswi-Anand/TrainSeatArrangement/blob/master/screenshots/mobile.jpg)
 
 # Project links
 API: https://train-seat-arrangement.vercel.app/getAllSeats
